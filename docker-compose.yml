@@ -1,0 +1,20 @@
+services:
+  base:
+    image: base:latest
+    container_name: base
+    build: 
+      context: .
+      dockerfile: ./containers/base/Dockerfile
+  ui:
+    image: ui:latest
+    container_name: ui
+    build: 
+      context: .
+      dockerfile: ./containers/ui/Dockerfile
+      args:
+        - IMAGE=base:latest
+#    environment:
+#      - BACKEND_HOST=app
+#      - BACKEND_PORT=${BACKEND_PORT}
+#    ports:
+#      - "8008:8501"

@@ -1,10 +1,14 @@
-ARG IMAGE
-FROM ${IMAGE}
+ARG BASE_IMAGE=cadaver-exquisito/base:latest
+FROM ${BASE_IMAGE}
 
-COPY ./src/ui /tmp/ui
+ENV STREAMLIT_SERVER_PORT=8501
 
-#RUN pip install --no-cache-dir /tmp/ui
+WORKDIR /workspace/ui
 
-#EXPOSE 8501
+COPY src/ui/ ./src
 
-#CMD ["streamlit", "run", "/tmp/web/web/Home.py"]
+RUN pip install --no-cache-dir streamlit
+
+EXPOSE 8501
+
+CMD ["streamlit", "hello"]

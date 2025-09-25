@@ -5,10 +5,10 @@
 	"runServices": [
 		"cadaver-exquisito-dev"
 	],
-	"workspaceFolder": "/workspace",
-	"customizations": {
-		"vscode": {
-			"extensions": [
+        "workspaceFolder": "/workspace",
+        "customizations": {
+                "vscode": {
+                        "extensions": [
 				"eamodio.gitlens",
 				"markis.code-coverage",
 				"ms-azuretools.vscode-docker",
@@ -22,21 +22,21 @@
 				"sonarsource.sonarlint-vscode",
 				"waderyan.gitblame"
 			],
-			"settings": {
-				"python.pythonPath": "/bin/python",
-				"python.languageServer": "Pylance",
-				"python.linting.enabled": true,
-				"python.linting.flake8Enabled": true,
-				"python.linting.pylintEnabled": true,
-				"python.linting.pycodestyleEnabled": false,
-				"python.formatting.blackPath": "/usr/local/bin/black",
-				"python.linting.flake8Path": "/usr/local/bin/flake8",
-				"editor.formatOnSave": true,
-				"files.trimFinalNewlines": true,
-				"files.trimTrailingWhitespace": true,
-				"files.watcherExclude": {
-					".git/**": true,
-				}
+                        "settings": {
+                                "python.defaultInterpreterPath": "/opt/venv/bin/python",
+                                "python.languageServer": "Pylance",
+                                "python.linting.enabled": true,
+                                "python.linting.flake8Enabled": true,
+                                "python.linting.pylintEnabled": true,
+                                "python.linting.pycodestyleEnabled": false,
+                                "python.formatting.blackPath": "/opt/venv/bin/black",
+                                "python.linting.flake8Path": "/opt/venv/bin/flake8",
+                                "editor.formatOnSave": true,
+                                "files.trimFinalNewlines": true,
+                                "files.trimTrailingWhitespace": true,
+                                "files.watcherExclude": {
+                                        ".git/**": true
+                                }
 			}
 		}
 	},

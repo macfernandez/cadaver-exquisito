@@ -1,20 +1,36 @@
 services:
   base:
-    image: base:latest
-    container_name: base
-    build: 
+    image: cadaver-exquisito/base:latest
+    build:
       context: .
       dockerfile: ./containers/base/Dockerfile
+
+  server:
+    image: cadaver-exquisito/server:latest
+    build:
+      context: .
+      dockerfile: ./containers/server/Dockerfile
+      args:
+        BASE_IMAGE: cadaver-exquisito/base:latest
+    environment:
+      APP_PORT: ${APP_PORT:-8000}
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    depends_on:
+      - base
+
   ui:
-    image: ui:latest
-    container_name: ui
-    build: 
+    image: cadaver-exquisito/ui:latest
+    build:
       context: .
       dockerfile: ./containers/ui/Dockerfile
       args:
-        - IMAGE=base:latest
-#    environment:
-#      - BACKEND_HOST=app
-#      - BACKEND_PORT=${BACKEND_PORT}
-#    ports:
-#      - "8008:8501"
+        BASE_IMAGE: cadaver-exquisito/base:latest
+    environment:
+      STREAMLIT_SERVER_PORT: ${STREAMLIT_SERVER_PORT:-8501}
+      BACKEND_HOST: ${BACKEND_HOST:-server}
+      BACKEND_PORT: ${BACKEND_PORT:-8000}
+    ports:
+      - "${STREAMLIT_SERVER_PORT:-8501}:8501"
+    depends_on:
+      - server

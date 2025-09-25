@@ -1,57 +1,54 @@
-FROM gcart/jupyter:latest
+ARG UI_IMAGE=cadaver-exquisito/ui:latest
+FROM ${UI_IMAGE} AS ui_image
 
-WORKDIR /tmp
+ARG SERVER_IMAGE=cadaver-exquisito/server:latest
+FROM ${SERVER_IMAGE} AS server_image
+
+FROM server_image
 
 ARG USER_NAME=vscode
-ARG USER_UID
-ARG USER_GID
-ARG DOCKER_GID
+ARG USER_UID=1000
+ARG USER_GID=1000
 
-RUN groupadd --gid $USER_GID $USER_NAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USER_NAME \
-    && apt-get update \
-    && apt-get install -y sudo \
-    && echo $USER_NAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER_NAME \
-    && chmod 0440 /etc/sudoers.d/$USER_NAME \
-    && apt-get autoremove -y \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        git \
+        htop \
+        iproute2 \
+        less \
+        locales \
+        make \
+        openssh-client \
+        sudo \
+        vim \
+    && locale-gen en_US.UTF-8 \
     && apt-get clean \
-    && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
-ENV SHELL=/usr/bin/zsh
-RUN chsh $USER_NAME -s $SHELL
+RUN groupadd --gid ${USER_GID} ${USER_NAME} \
+    && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USER_NAME} \
+    && echo "${USER_NAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${USER_NAME} \
+    && chmod 0440 /etc/sudoers.d/${USER_NAME}
 
-# RUN mkdir /root/tests
-RUN ln -s /workspace/test /root/tests
+ENV LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    PATH="/opt/venv/bin:${PATH}"
 
-# Install dev dependences & tools
-RUN apt update && apt install -y \
-    htop \
-    vim \
-    git-lfs \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release \
-    ssh \
-    rsync \
-    kmod \
-    sudo \
-    make \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && rm -rf /tmp/* /var/tmp/* \
-    && rm -rf /var/lib/apt/lists/*
+COPY .devcontainer/requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Install dev packages
-COPY .devcontainer/requirements.txt .
-RUN --mount=type=cache,target=/root/.cache \
-    pip install -r requirements.txt
+# Ensure UI tooling is also available when developing the server
+RUN pip install --no-cache-dir streamlit
 
+COPY --from=ui_image /workspace/ui /opt/templates/ui
 
-RUN chown -R ${USER_NAME} /root
+WORKDIR /workspace
 
-USER vscode
-RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-ENV PATH=$PATH:/home/vscode/.local/bin
+RUN chown -R ${USER_NAME}:${USER_GID} /workspace
+
+USER ${USER_NAME}
+
+CMD ["/bin/bash"]

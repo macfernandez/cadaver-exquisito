@@ -1,5 +1,6 @@
 {
 	"name": "cadaver-exquisito",
+	"initializeCommand": "docker compose build base",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "cadaver-exquisito-dev",
 	"runServices": [

@@ -1,4 +1,4 @@
-FROM gcart/jupyter:latest
+FROM base:latest
 
 WORKDIR /tmp
 

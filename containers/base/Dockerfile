@@ -8,4 +8,7 @@ WORKDIR /root
 RUN apt-get update \
     && apt-get install -y python3 python3-venv python3-pip
 
-RUN pip install --upgrade pip setuptools
+RUN apt update \
+    && apt install --only-upgrade -y python3-pip
+
+RUN pip install setuptools

@@ -2,7 +2,7 @@ version: "3.8"
 services:
     cadaver-exquisito-dev:
         network_mode: host
-        image: cadaver-exquisito-dev
+        image: cadaver-exquisito-dev:latest
         container_name: cadaver-exquisito-dev
         build:
             context: ..

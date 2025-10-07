@@ -13,8 +13,9 @@ services:
       dockerfile: ./containers/ui/Dockerfile
       args:
         - IMAGE=base:latest
-#    environment:
+    environment:
+      - STREAMLIT_SERVER_PORT=${UI_PORT}
 #      - BACKEND_HOST=app
 #      - BACKEND_PORT=${BACKEND_PORT}
-#    ports:
-#      - "8008:8501"
+    ports:
+      - "${UI_PORT}:${UI_PORT}"

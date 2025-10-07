@@ -1,10 +1,13 @@
 ARG IMAGE
 FROM ${IMAGE}
 
-COPY ./src/ui /tmp/ui
+COPY ./src/ui /root/ui
 
-#RUN pip install --no-cache-dir /tmp/ui
+RUN --mount=type=cache,target=/root/.cache \
+    pip install --default-timeout=100 /root/ui
 
-#EXPOSE 8501
+WORKDIR /root
 
-#CMD ["streamlit", "run", "/tmp/web/web/Home.py"]
+EXPOSE ${STREAMLIT_SERVER_PORT}
+
+CMD ["streamlit", "run", "/root/ui/ui/Home.py"]

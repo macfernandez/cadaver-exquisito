@@ -5,7 +5,7 @@ WORKDIR /tmp
 ARG USER_NAME=vscode
 ARG USER_UID
 ARG USER_GID
-ARG DOCKER_GID
+#ARG DOCKER_GID
 
 RUN groupadd --gid $USER_GID $USER_NAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USER_NAME \

@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "UI",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": [
+                "run",
+                "/workspace/src/ui/ui/Home.py"
+            ]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "API",
+            "configurations": [
+                "UI"
+            ]
+        }
+    ]
+}

@@ -3,13 +3,19 @@
     "configurations": [
         {
             "name": "UI",
+            "consoleName": "UI",
             "type": "debugpy",
             "request": "launch",
             "module": "streamlit",
             "args": [
                 "run",
                 "/workspace/src/ui/ui/Home.py"
-            ]
+            ],
+            "presentation": {
+                "hidden": false,
+                "group": "components",
+                "order": 1
+            }
         }
     ],
     "compounds": [

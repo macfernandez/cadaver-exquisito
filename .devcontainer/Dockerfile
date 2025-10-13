@@ -52,7 +52,9 @@ COPY .devcontainer/requirements.txt .
 RUN --mount=type=cache,target=/root/.cache \
     pip install -r requirements.txt
 
+WORKDIR /workspace
 RUN chown -R ${USER_NAME} /root
+RUN chown -R ${USER_NAME} /workspace
 
 USER vscode
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

@@ -7,6 +7,7 @@
 		"cadaver-exquisito-dev"
 	],
 	"workspaceFolder": "/workspace",
+	"remoteUser": "vscode",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -41,5 +42,5 @@
 			}
 		}
 	},
-	"postCreateCommand": "git config --global --add safe.directory /workspace"
+	"postCreateCommand": "./.devcontainer/postCreateCommand.sh"
 }

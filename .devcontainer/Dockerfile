@@ -10,7 +10,7 @@ ARG USER_GID
 RUN groupadd --gid $USER_GID $USER_NAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USER_NAME \
     && apt-get update \
-    && apt-get install -y sudo \
+    && apt-get install -y sudo zsh \
     && echo $USER_NAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER_NAME \
     && chmod 0440 /etc/sudoers.d/$USER_NAME \
     && apt-get autoremove -y \
@@ -44,11 +44,13 @@ RUN apt update && apt install -y \
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
+# disable git ssl verify
+RUN git config --global http.sslverify false
+
 # Install dev packages
 COPY .devcontainer/requirements.txt .
 RUN --mount=type=cache,target=/root/.cache \
     pip install -r requirements.txt
-
 
 RUN chown -R ${USER_NAME} /root
 

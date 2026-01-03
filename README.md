@@ -2,6 +2,12 @@
 
 ## Build Images
 
+### Base image
+
+```bash
+docker compose build base
+```
+
 ### UI
 
 ```bash

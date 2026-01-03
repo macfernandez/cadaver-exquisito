@@ -2,13 +2,13 @@ services:
   base:
     image: base:latest
     container_name: base
-    build: 
+    build:
       context: .
       dockerfile: ./containers/base/Dockerfile
   ui:
     image: ui:latest
     container_name: ui
-    build: 
+    build:
       context: .
       dockerfile: ./containers/ui/Dockerfile
       args:
@@ -18,4 +18,16 @@ services:
 #      - BACKEND_HOST=app
 #      - BACKEND_PORT=${BACKEND_PORT}
     ports:
-      - "${UI_PORT}:${UI_PORT}"
+      - 8501:8501
+  server:
+    image: server:latest
+    container_name: server
+    build:
+      context: .
+      dockerfile: ./containers/server/Dockerfile
+      args:
+        - IMAGE=base:latest
+    environment:
+      - PORT=${BACKEND_PORT}
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}

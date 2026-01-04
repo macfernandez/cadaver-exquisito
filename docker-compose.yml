@@ -18,7 +18,7 @@ services:
 #      - BACKEND_HOST=app
 #      - BACKEND_PORT=${BACKEND_PORT}
     ports:
-      - 8501:8501
+      - ${UI_PORT}:${UI_PORT}
   server:
     image: server:latest
     container_name: server
@@ -28,6 +28,6 @@ services:
       args:
         - IMAGE=base:latest
     environment:
-      - PORT=${BACKEND_PORT}
+      - PORT=${SERVER_PORT}
     ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - ${SERVER_PORT}:${SERVER_PORT}

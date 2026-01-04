@@ -15,6 +15,7 @@
 				"markis.code-coverage",
 				"ms-azuretools.vscode-docker",
 				"ms-python.python",
+				"ms-python.debugpy",
 				"ms-python.black-formatter",
 				"ms-python.flake8",
 				"ms-python.vscode-pylance",
@@ -25,14 +26,11 @@
 				"waderyan.gitblame"
 			],
 			"settings": {
-				"python.pythonPath": "/bin/python",
 				"python.languageServer": "Pylance",
 				"python.linting.enabled": true,
 				"python.linting.flake8Enabled": true,
 				"python.linting.pylintEnabled": true,
 				"python.linting.pycodestyleEnabled": false,
-				"python.formatting.blackPath": "/usr/local/bin/black",
-				"python.linting.flake8Path": "/usr/local/bin/flake8",
 				"editor.formatOnSave": true,
 				"files.trimFinalNewlines": true,
 				"files.trimTrailingWhitespace": true,

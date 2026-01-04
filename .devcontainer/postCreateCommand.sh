@@ -1,3 +1,6 @@
+# install server
+pip install -e '/workspace/src/server'
+
 # install ui
 pip install -e '/workspace/src/ui'
 

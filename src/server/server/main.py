@@ -1,16 +1,18 @@
-from typing import Union
-
 from fastapi import FastAPI
+
+from server.models import Model
+from server.schemas import Text
 
 
 app = FastAPI()
 
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
+def welcome():
+    return {"text": "Welcome to the Cadaver Exquisito API"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/chat", response_model=Text)
+def generate(text: Text) -> Text:
+    response = Model().generate(text.text)
+    return Text(text=response)

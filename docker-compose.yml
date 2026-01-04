@@ -14,7 +14,7 @@ services:
       args:
         - IMAGE=base:latest
     environment:
-      - STREAMLIT_SERVER_PORT=${UI_PORT}
+      - PORT=${UI_PORT}
 #      - BACKEND_HOST=app
 #      - BACKEND_PORT=${BACKEND_PORT}
     ports:

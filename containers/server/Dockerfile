@@ -10,5 +10,4 @@ WORKDIR /root
 
 EXPOSE ${PORT}
 
-# TODO: change to ${PORT}
-CMD ["fastapi", "run", "/root/server/server/main.py", "--port", "8000"]
+CMD ["sh", "-c", "fastapi run /root/server/server/main.py --port ${PORT}"]

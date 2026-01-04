@@ -8,6 +8,6 @@ RUN --mount=type=cache,target=/root/.cache \
 
 WORKDIR /root
 
-EXPOSE ${STREAMLIT_SERVER_PORT}
+EXPOSE ${PORT}
 
 CMD ["streamlit", "run", "/root/ui/ui/Home.py"]

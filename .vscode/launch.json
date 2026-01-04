@@ -2,6 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Server",
+            "consoleName": "Server",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastapi",
+            "args": [
+                "dev",
+                "/workspace/src/server/server/main.py"
+            ],
+            "presentation": {
+                "hidden": false,
+                "group": "components",
+                "order": 1
+            }
+        },
+        {
             "name": "UI",
             "consoleName": "UI",
             "type": "debugpy",
@@ -14,7 +30,7 @@
             "presentation": {
                 "hidden": false,
                 "group": "components",
-                "order": 1
+                "order": 2
             }
         }
     ],
@@ -22,6 +38,7 @@
         {
             "name": "API",
             "configurations": [
+                "Server",
                 "UI"
             ]
         }
